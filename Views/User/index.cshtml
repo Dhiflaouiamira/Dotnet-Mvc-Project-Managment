@@ -1,0 +1,39 @@
+@{
+    int? totalPages = (int)Math.Ceiling((double)Model.Count / 3);
+    int activePage = 2;
+}
+
+<h1>Users List</h1>
+
+<div class="d-flex flex-wrap">
+    @foreach(var user in ViewBag.Users)
+    {
+        <div class="card m-2" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">@user.Email</h5>
+                <p class="card-text">Status: @user.Id</p>
+            </div>
+        </div>
+    }
+</div>
+
+<hr />
+
+<nav aria-label="...">
+    <ul class="pagination">
+        <li class="page-item @(activePage == 1 ? "disabled" : "")">
+            <a class="page-link" href="#">Previous</a>
+        </li>
+        @for (var i = 0; i < totalPages; i++)
+        {
+            var pageNumber = i + 1;
+            <li class="page-item @(pageNumber == activePage ? "active" : "")" aria-current="page">
+                <a class="page-link" href="#">@pageNumber</a>
+            </li>
+        }
+        <li class="page-item @(activePage == totalPages ? "disabled" : "")">
+            <a class="page-link" href="#">Next</a>
+        </li>
+    </ul>
+</nav>
+
